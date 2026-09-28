@@ -1,0 +1,19 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "color_cream": "#F6EEDF",
+      "color_paper": "#FBF6EC",
+      "color_sand": "#EADBC0",
+      "color_forest": "#2E4A36",
+      "color_forest_deep": "#1F3326",
+      "color_terracotta": "#B5542B",
+      "color_terracotta_deep": "#9C4520",
+      "color_ink": "#2B2A24",
+      "color_muted": "#5E5A4E",
+      "page_width": 1240,
+      "product_image_fit": "contain",
+      "show_secondary_image": true
+    }
+  }
+}

@@ -1,0 +1,92 @@
+<section class="hero" aria-labelledby="HeroTitle-{{ section.id }}">
+  <div class="doodle doodle--paws">{% render 'illustration', name: 'paws' %}</div>
+
+  <div class="page-width hero__grid">
+    <div class="hero__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow" data-hero-in style="--i: 0;">{% render 'icon', name: 'paw' %}{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h1 class="hero__title" id="HeroTitle-{{ section.id }}" data-hero-in style="--i: 1;">
+        {{- section.settings.heading | escape | replace: '[', '<em class="squiggle">' | replace: ']', '</em>' -}}
+      </h1>
+      {%- if section.settings.subheading != blank -%}
+        <p class="hero__sub" data-hero-in style="--i: 2;">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+      <div class="hero__actions" data-hero-in style="--i: 3;">
+        <a class="btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+          {{ section.settings.button_label }}
+          {% render 'icon', name: 'arrow' %}
+        </a>
+        {%- if section.settings.trust_text != blank -%}
+          <p class="hero__trust">{% render 'icon', name: 'truck' %}{{ section.settings.trust_text }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__blob" aria-hidden="true"></div>
+      <figure class="scrap-photo hero__photo" data-hero-in style="--i: 2;">
+        <span class="tape tape--tl" aria-hidden="true"></span>
+        <span class="tape tape--tr" aria-hidden="true"></span>
+        <div class="media">
+          {%- if section.settings.image != blank -%}
+            {{
+              section.settings.image
+              | image_url: width: 1400
+              | image_tag:
+                loading: 'eager',
+                fetchpriority: 'high',
+                widths: '480, 720, 960, 1200, 1400',
+                sizes: '(min-width: 990px) 42vw, 88vw',
+                alt: section.settings.image.alt | default: section.settings.caption
+            }}
+          {%- else -%}
+            {% render 'placeholder', label: 'Your lifestyle photo', tint: '#EADBC0' %}
+          {%- endif -%}
+        </div>
+        {%- if section.settings.caption != blank -%}
+          <figcaption class="scrap-photo__caption">{{ section.settings.caption }}</figcaption>
+        {%- endif -%}
+      </figure>
+
+      {%- if section.settings.note != blank -%}
+        <p class="hero__note hand-note" data-hero-in style="--i: 4;">
+          {% render 'illustration', name: 'arrow' %}
+          <span>{{ section.settings.note }}</span>
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "class": "section-hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "The neighborhood pet shop, online" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Good stuff for every [mutt]", "info": "Wrap a word in [square brackets] to give it the hand-drawn underline." },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Beds, bowls, walk gear and shirts for dogs and cats of every shape, size and questionable pedigree. Picked by pet people. Tested by our own mutts."
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop All" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Defaults to all products." },
+    { "type": "text", "id": "trust_text", "label": "Note beside button", "default": "Free shipping on every order" },
+    { "type": "header", "content": "Photo" },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Lifestyle image",
+      "info": "One warm, real-life photo works best. Portrait (4:5) crops nicely."
+    },
+    { "type": "text", "id": "caption", "label": "Photo caption (handwritten)", "default": "Biscuit, head of quality control" },
+    { "type": "text", "id": "note", "label": "Side note (handwritten)", "default": "100% mutt. 0% regrets." }
+  ],
+  "presets": [
+    { "name": "Hero" }
+  ]
+}
+{% endschema %}

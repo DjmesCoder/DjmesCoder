@@ -1,0 +1,14 @@
+<div class="page-width page-width--narrow" style="padding-top: clamp(2rem, 5vw, 3.5rem);">
+  <h1 data-reveal>{{ page.title }}</h1>
+  <div class="content-card rte" data-reveal style="--reveal-i: 1;">
+    {{ page.content }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "class": "section-main-page",
+  "settings": []
+}
+{% endschema %}

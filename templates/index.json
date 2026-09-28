@@ -1,0 +1,165 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "shop_by_pet": {
+      "type": "shop-by-pet",
+      "blocks": {
+        "dogs": {
+          "type": "pet",
+          "settings": {
+            "pet": "dogs",
+            "title": "For Dogs",
+            "text": "Shirts, bowls, beds and walk gear for the good boys, good girls and professional sock thieves.",
+            "cta": "Shop dog stuff"
+          }
+        },
+        "cats": {
+          "type": "pet",
+          "settings": {
+            "pet": "cats",
+            "title": "For Cats",
+            "text": "Cozy spots, tidy bowls and grooming bits for cats who will absolutely pretend not to care.",
+            "cta": "Shop cat stuff"
+          }
+        }
+      },
+      "block_order": [
+        "dogs",
+        "cats"
+      ],
+      "settings": {}
+    },
+    "shop_by_need": {
+      "type": "shop-by-need",
+      "blocks": {
+        "apparel": {
+          "type": "need",
+          "settings": {
+            "title": "Dog Apparel",
+            "icon": "shirt"
+          }
+        },
+        "feeding": {
+          "type": "need",
+          "settings": {
+            "title": "Feeding",
+            "icon": "bowl"
+          }
+        },
+        "beds": {
+          "type": "need",
+          "settings": {
+            "title": "Beds & Comfort",
+            "icon": "bed"
+          }
+        },
+        "walks": {
+          "type": "need",
+          "settings": {
+            "title": "Walks & Potty",
+            "icon": "leash"
+          }
+        },
+        "grooming": {
+          "type": "need",
+          "settings": {
+            "title": "Cleaning & Grooming",
+            "icon": "brush"
+          }
+        }
+      },
+      "block_order": [
+        "apparel",
+        "feeding",
+        "beds",
+        "walks",
+        "grooming"
+      ],
+      "settings": {}
+    },
+    "featured": {
+      "type": "featured-products",
+      "blocks": {
+        "shirt": {
+          "type": "product",
+          "settings": {
+            "note": "Wear your faith on your fur"
+          }
+        },
+        "dispenser": {
+          "type": "product",
+          "settings": {
+            "note": "Lights up night walks"
+          }
+        },
+        "bowl": {
+          "type": "product",
+          "settings": {
+            "note": "Slows down the gulpers"
+          }
+        }
+      },
+      "block_order": [
+        "shirt",
+        "dispenser",
+        "bowl"
+      ],
+      "settings": {}
+    },
+    "why": {
+      "type": "why-muttmore",
+      "blocks": {
+        "shipping": {
+          "type": "point",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping on every order",
+            "text": "No minimums. No math. Just the good stuff, on its way to your door."
+          }
+        },
+        "returns": {
+          "type": "point",
+          "settings": {
+            "icon": "return",
+            "title": "30-day returns on unopened items",
+            "text": "Changed your mind? Send it back unopened within 30 days. No hard feelings."
+          }
+        },
+        "people": {
+          "type": "point",
+          "settings": {
+            "icon": "mail-heart",
+            "title": "Real people answering your emails",
+            "text": "No bots, no ticket numbers. Just pet people who actually read what you wrote."
+          }
+        }
+      },
+      "block_order": [
+        "shipping",
+        "returns",
+        "people"
+      ],
+      "settings": {}
+    },
+    "story": {
+      "type": "our-story",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "shop_by_pet",
+    "shop_by_need",
+    "featured",
+    "why",
+    "story",
+    "newsletter"
+  ]
+}

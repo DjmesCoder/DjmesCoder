@@ -1,0 +1,79 @@
+{%- comment -%}
+  Product card on a warm-toned tile.
+  Params:
+    product         – product object (blank renders a placeholder card)
+    index           – used for reveal stagger
+    note            – optional handwritten sticky note
+    image_fit       – 'contain' (cut-out product shots) or 'cover' (lifestyle shots)
+    heading_level   – 'h3' default
+{%- endcomment -%}
+{%- liquid
+  assign heading_tag = heading_level | default: 'h3'
+  assign fit = image_fit | default: settings.product_image_fit
+  assign color_option = null
+  for option in product.options_with_values
+    assign option_name = option.name | downcase
+    if option_name == 'color' or option_name == 'colour'
+      assign color_option = option
+    endif
+  endfor
+-%}
+<div class="product-card" data-reveal style="--reveal-i: {{ index | default: 0 }};">
+  {%- if note != blank -%}
+    <p class="featured__card-note" aria-hidden="true">{{ note }}</p>
+  {%- endif -%}
+
+  <div class="product-card__media{% if fit == 'cover' %} product-card__media--cover{% endif %}">
+    {%- if product.featured_media -%}
+      {{
+        product.featured_media
+        | image_url: width: 900
+        | image_tag:
+          loading: 'lazy',
+          widths: '360, 540, 720, 900',
+          sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 90vw',
+          alt: product.featured_media.alt | default: product.title
+      }}
+      {%- if settings.show_secondary_image and product.media[1] -%}
+        {{
+          product.media[1]
+          | image_url: width: 900
+          | image_tag:
+            loading: 'lazy',
+            widths: '360, 540, 720, 900',
+            sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 90vw',
+            alt: '',
+            class: 'product-card__alt'
+        }}
+      {%- endif -%}
+    {%- else -%}
+      {% render 'placeholder', label: 'Product photo' %}
+    {%- endif -%}
+
+    {%- if product != blank and product.available == false -%}
+      <span class="product-card__badge product-card__badge--sold">Sold out for now</span>
+    {%- elsif product.compare_at_price > product.price -%}
+      <span class="product-card__badge">On sale</span>
+    {%- endif -%}
+  </div>
+
+  <div class="product-card__info">
+    <{{ heading_tag }} class="product-card__title h4">
+      <a href="{{ product.url | default: '#' }}">{{ product.title | default: 'Your product name' }}</a>
+    </{{ heading_tag }}>
+    {%- if product != blank -%}
+      {% render 'price', product: product, show_from: true %}
+    {%- else -%}
+      <div class="price"><span class="price__current">{{ 1900 | money }}</span></div>
+    {%- endif -%}
+
+    {%- if color_option and color_option.values.size > 1 -%}
+      <div class="product-card__swatches">
+        <span class="visually-hidden">{{ color_option.values.size }} colors</span>
+        {%- for value in color_option.values limit: 5 -%}
+          <span aria-hidden="true" style="--swatch: {% render 'swatch-color', value: value %};" title="{{ value | escape }}"></span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>

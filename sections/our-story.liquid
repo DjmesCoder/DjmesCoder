@@ -1,0 +1,71 @@
+<section class="section" aria-labelledby="StoryTitle-{{ section.id }}">
+  <div class="page-width story__grid">
+    <figure class="scrap-photo story__photo" data-reveal>
+      <span class="tape tape--top" aria-hidden="true"></span>
+      <div class="media">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 900
+            | image_tag:
+              loading: 'lazy',
+              widths: '400, 600, 900',
+              sizes: '(min-width: 850px) 30vw, 80vw',
+              alt: section.settings.image.alt | default: section.settings.caption
+          }}
+        {%- else -%}
+          {% render 'placeholder', label: 'Your photo goes here', tint: '#F0D5C3' %}
+        {%- endif -%}
+      </div>
+      {%- if section.settings.caption != blank -%}
+        <figcaption class="scrap-photo__caption">{{ section.settings.caption }}</figcaption>
+      {%- endif -%}
+    </figure>
+
+    <div class="story__text" data-reveal style="--reveal-i: 1;">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{% render 'icon', name: 'heart' %}{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 id="StoryTitle-{{ section.id }}">{{ section.settings.heading }}</h2>
+      <div class="rte">{{ section.settings.text }}</div>
+      {%- if section.settings.signature != blank -%}
+        <p class="story__sign hand-note">
+          {% render 'icon', name: 'paw' %}
+          {{ section.settings.signature }}
+        </p>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <p style="margin-top: 1.75rem;">
+          <a class="btn btn--ghost" href="{{ section.settings.button_link | default: '#' }}">
+            {{ section.settings.button_label }}
+          </a>
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Our story",
+  "class": "section-our-story",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Your photo", "info": "A snapshot of you and your pets. Square-ish photos look best." },
+    { "type": "text", "id": "caption", "label": "Photo caption (handwritten)", "default": "The original Muttmore crew" },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Our story" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Started by a mutt. Run by mutt people." },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Story",
+      "default": "<p>Muttmore started with one scruffy rescue who had no pedigree and a lot of opinions. Pet stores felt built for show dogs. We wanted a shop for the rest of us.</p><p>So we stock the everyday things we actually use: sturdy bowls, soft beds, walk gear that survives puddles. Every breed, every mix, every lovable weirdo is welcome here.</p><p><em>This is your space. Swap in your own story and photo from the theme editor.</em></p>"
+    },
+    { "type": "text", "id": "signature", "label": "Signature (handwritten)", "default": "— Your name & the pack" },
+    { "type": "text", "id": "button_label", "label": "Button label", "info": "Optional, e.g. link to an About page." },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [
+    { "name": "Our story" }
+  ]
+}
+{% endschema %}

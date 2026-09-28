@@ -1,0 +1,64 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "show_vendor": false
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "note": {
+          "type": "text",
+          "settings": {
+            "text": "Mutt-tested, owner-approved."
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "size_guide": {
+          "type": "size_guide",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "perks": {
+          "type": "perks",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "note",
+        "variant_picker",
+        "size_guide",
+        "buy_buttons",
+        "description",
+        "perks"
+      ],
+      "settings": {}
+    },
+    "pairs": {
+      "type": "product-recommendations",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "pairs"
+  ]
+}

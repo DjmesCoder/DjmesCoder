@@ -1,0 +1,18 @@
+{%- style -%}
+  :root {
+    --color-cream: {{ settings.color_cream }};
+    --color-paper: {{ settings.color_paper }};
+    --color-sand: {{ settings.color_sand }};
+    --color-forest: {{ settings.color_forest }};
+    --color-forest-deep: {{ settings.color_forest_deep }};
+    --color-terracotta: {{ settings.color_terracotta }};
+    --color-terracotta-deep: {{ settings.color_terracotta_deep }};
+    --color-ink: {{ settings.color_ink }};
+    --color-muted: {{ settings.color_muted }};
+
+    --color-forest-rgb: {{ settings.color_forest.red }}, {{ settings.color_forest.green }}, {{ settings.color_forest.blue }};
+    --color-ink-rgb: {{ settings.color_ink.red }}, {{ settings.color_ink.green }}, {{ settings.color_ink.blue }};
+
+    --page-width: {{ settings.page_width }}px;
+  }
+{%- endstyle -%}

@@ -1,0 +1,142 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Muttmore",
+    "theme_version": "1.0.0",
+    "theme_author": "Muttmore",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_email": "support@muttmore.com"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Warm cream, forest green and terracotta. Keep text colors dark enough to read easily on cream."
+      },
+      {
+        "type": "color",
+        "id": "color_cream",
+        "label": "Page background (cream)",
+        "default": "#F6EEDF"
+      },
+      {
+        "type": "color",
+        "id": "color_paper",
+        "label": "Cards & inputs (paper)",
+        "default": "#FBF6EC"
+      },
+      {
+        "type": "color",
+        "id": "color_sand",
+        "label": "Soft panels & photo tiles (sand)",
+        "default": "#EADBC0"
+      },
+      {
+        "type": "color",
+        "id": "color_forest",
+        "label": "Main color (forest green)",
+        "default": "#2E4A36"
+      },
+      {
+        "type": "color",
+        "id": "color_forest_deep",
+        "label": "Headings & footer (deep forest)",
+        "default": "#1F3326"
+      },
+      {
+        "type": "color",
+        "id": "color_terracotta",
+        "label": "Accent (terracotta)",
+        "default": "#B5542B"
+      },
+      {
+        "type": "color",
+        "id": "color_terracotta_deep",
+        "label": "Accent buttons & small text (burnt orange)",
+        "default": "#9C4520"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Body text",
+        "default": "#2B2A24"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Secondary text",
+        "default": "#5E5A4E"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1240
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32 \u00d7 32px .png"
+      }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      {
+        "type": "select",
+        "id": "product_image_fit",
+        "label": "Product photo fit",
+        "options": [
+          {
+            "value": "contain",
+            "label": "Show whole product on warm tile"
+          },
+          {
+            "value": "cover",
+            "label": "Fill the tile"
+          }
+        ],
+        "default": "contain",
+        "info": "'Warm tile' works best with product photos on plain light backgrounds."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_secondary_image",
+        "label": "Show second photo on hover",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok"
+      }
+    ]
+  }
+]

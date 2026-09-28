@@ -1,0 +1,224 @@
+{%- comment -%}
+  One section for every customer-account template. Picks its layout from template.name.
+{%- endcomment -%}
+{%- liquid
+  assign width_class = 'page-width--narrow'
+  if template.name == 'account' or template.name == 'order' or template.name == 'addresses'
+    assign width_class = ''
+  elsif template.name == 'login' or template.name == 'register' or template.name == 'activate_account' or template.name == 'reset_password'
+    assign width_class = 'page-width--form'
+  endif
+-%}
+<div class="page-width {{ width_class }}" style="padding-top: clamp(2rem, 5vw, 3.5rem);">
+  {%- case template.name -%}
+
+    {%- when 'login' -%}
+      <h1 data-reveal>Welcome back</h1>
+      <div class="content-card" data-reveal>
+        {%- form 'customer_login', novalidate: 'novalidate' -%}
+          {%- if form.errors -%}
+            <div class="form-message form-message--error" role="alert">{% render 'icon', name: 'alert' %}<span>{{ form.errors | default_errors }}</span></div>
+          {%- endif -%}
+          <div class="field">
+            <label for="LoginEmail">Email</label>
+            <input id="LoginEmail" type="email" name="customer[email]" autocomplete="email" autocapitalize="off" spellcheck="false" required>
+          </div>
+          {%- if form.password_needed -%}
+            <div class="field">
+              <label for="LoginPassword">Password</label>
+              <input id="LoginPassword" type="password" name="customer[password]" autocomplete="current-password" required>
+            </div>
+          {%- endif -%}
+          <button class="btn btn--full" type="submit">Log in</button>
+        {%- endform -%}
+        <p style="margin-top: 1.25rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem;">
+          <a href="{{ routes.account_register_url }}">New here? Create an account</a>
+          <a href="#recover">Forgot password?</a>
+        </p>
+      </div>
+
+      <div class="content-card" id="recover" style="margin-top: 2rem;">
+        <h2 class="h3">Reset your password</h2>
+        {%- form 'recover_customer_password' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="form-message form-message--success" role="status">{% render 'icon', name: 'check' %}<span>Check your inbox. We sent a reset link.</span></p>
+          {%- endif -%}
+          {%- if form.errors -%}
+            <div class="form-message form-message--error" role="alert">{% render 'icon', name: 'alert' %}<span>{{ form.errors | default_errors }}</span></div>
+          {%- endif -%}
+          <div class="field">
+            <label for="RecoverEmail">Email</label>
+            <input id="RecoverEmail" type="email" name="email" autocomplete="email" required>
+          </div>
+          <button class="btn btn--ghost" type="submit">Send reset link</button>
+        {%- endform -%}
+      </div>
+
+      {%- if shop.checkout.guest_login -%}
+        <div class="content-card" style="margin-top: 2rem;">
+          {%- form 'guest_login' -%}
+            <button class="btn btn--ghost btn--full" type="submit">Continue as guest</button>
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+
+    {%- when 'register' -%}
+      <h1 data-reveal>Join the pack</h1>
+      <div class="content-card" data-reveal>
+        {%- form 'create_customer', novalidate: 'novalidate' -%}
+          {%- if form.errors -%}
+            <div class="form-message form-message--error" role="alert">{% render 'icon', name: 'alert' %}<span>{{ form.errors | default_errors }}</span></div>
+          {%- endif -%}
+          <div class="field-row">
+            <div class="field"><label for="RegFirst">First name</label><input id="RegFirst" type="text" name="customer[first_name]" autocomplete="given-name"></div>
+            <div class="field"><label for="RegLast">Last name</label><input id="RegLast" type="text" name="customer[last_name]" autocomplete="family-name"></div>
+          </div>
+          <div class="field"><label for="RegEmail">Email</label><input id="RegEmail" type="email" name="customer[email]" autocomplete="email" autocapitalize="off" required></div>
+          <div class="field"><label for="RegPassword">Password</label><input id="RegPassword" type="password" name="customer[password]" autocomplete="new-password" required></div>
+          <button class="btn btn--full" type="submit">Create account</button>
+        {%- endform -%}
+      </div>
+
+    {%- when 'activate_account' -%}
+      <h1 data-reveal>Activate your account</h1>
+      <div class="content-card">
+        {%- form 'activate_customer_password' -%}
+          {%- if form.errors -%}<div class="form-message form-message--error" role="alert">{% render 'icon', name: 'alert' %}<span>{{ form.errors | default_errors }}</span></div>{%- endif -%}
+          <div class="field"><label for="ActPassword">Password</label><input id="ActPassword" type="password" name="customer[password]" autocomplete="new-password" required></div>
+          <div class="field"><label for="ActConfirm">Confirm password</label><input id="ActConfirm" type="password" name="customer[password_confirmation]" autocomplete="new-password" required></div>
+          <button class="btn btn--full" type="submit">Activate account</button>
+        {%- endform -%}
+      </div>
+
+    {%- when 'reset_password' -%}
+      <h1 data-reveal>Choose a new password</h1>
+      <div class="content-card">
+        {%- form 'reset_customer_password' -%}
+          {%- if form.errors -%}<div class="form-message form-message--error" role="alert">{% render 'icon', name: 'alert' %}<span>{{ form.errors | default_errors }}</span></div>{%- endif -%}
+          <div class="field"><label for="ResetPassword">New password</label><input id="ResetPassword" type="password" name="customer[password]" autocomplete="new-password" required></div>
+          <div class="field"><label for="ResetConfirm">Confirm password</label><input id="ResetConfirm" type="password" name="customer[password_confirmation]" autocomplete="new-password" required></div>
+          <button class="btn btn--full" type="submit">Save password</button>
+        {%- endform -%}
+      </div>
+
+    {%- when 'account' -%}
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem;">
+        <h1 data-reveal style="margin: 0;">Hi, {{ customer.first_name | default: 'friend' }}</h1>
+        <a class="btn btn--ghost" href="{{ routes.account_logout_url }}">Log out</a>
+      </div>
+      <div class="contact-grid" style="margin-top: 2rem;">
+        <div class="content-card">
+          <h2 class="h3">Your orders</h2>
+          {%- if customer.orders.size > 0 -%}
+            <div class="size-table-wrap">
+              <table class="account-table">
+                <thead><tr><th scope="col">Order</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col">Total</th></tr></thead>
+                <tbody>
+                  {%- for order in customer.orders -%}
+                    <tr>
+                      <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                      <td>{{ order.created_at | date: '%b %-d, %Y' }}</td>
+                      <td>{{ order.fulfillment_status_label }}</td>
+                      <td>{{ order.total_net_amount | money }}</td>
+                    </tr>
+                  {%- endfor -%}
+                </tbody>
+              </table>
+            </div>
+          {%- else -%}
+            <p>No orders yet. Your mutt is waiting.</p>
+            <a class="btn" href="{{ routes.all_products_collection_url }}">Shop All</a>
+          {%- endif -%}
+        </div>
+        <div class="content-card">
+          <h2 class="h3">Default address</h2>
+          {{ customer.default_address | format_address | default: '<p>No address saved yet.</p>' }}
+          <p><a class="link-arrow" href="{{ routes.account_addresses_url }}">Manage addresses {% render 'icon', name: 'arrow' %}</a></p>
+        </div>
+      </div>
+
+    {%- when 'order' -%}
+      <p><a class="link-arrow" href="{{ routes.account_url }}">&larr; Back to account</a></p>
+      <h1>Order {{ order.name }}</h1>
+      <p>Placed {{ order.created_at | date: '%B %-d, %Y' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</p>
+      <div class="content-card">
+        <div class="size-table-wrap">
+          <table class="account-table">
+            <thead><tr><th scope="col">Item</th><th scope="col">Qty</th><th scope="col">Total</th></tr></thead>
+            <tbody>
+              {%- for line_item in order.line_items -%}
+                <tr>
+                  <td><a href="{{ line_item.product.url }}">{{ line_item.title }}</a></td>
+                  <td>{{ line_item.quantity }}</td>
+                  <td>{{ line_item.final_line_price | money }}</td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+            <tfoot>
+              <tr><th scope="row" colspan="2">Subtotal</th><td>{{ order.line_items_subtotal_price | money }}</td></tr>
+              <tr><th scope="row" colspan="2">Shipping</th><td>{{ order.shipping_price | money }}</td></tr>
+              <tr><th scope="row" colspan="2">Tax</th><td>{{ order.tax_price | money }}</td></tr>
+              <tr><th scope="row" colspan="2">Total</th><td><strong>{{ order.total_net_amount | money_with_currency }}</strong></td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <div class="contact-grid" style="margin-top: 2rem;">
+        <div class="content-card"><h2 class="h4">Shipping address</h2>{{ order.shipping_address | format_address }}</div>
+        <div class="content-card"><h2 class="h4">Billing address</h2>{{ order.billing_address | format_address }}</div>
+      </div>
+
+    {%- when 'addresses' -%}
+      <p><a class="link-arrow" href="{{ routes.account_url }}">&larr; Back to account</a></p>
+      <h1>Your addresses</h1>
+      <div class="contact-grid">
+        <div style="display: grid; gap: 1rem;">
+          {%- for address in customer.addresses -%}
+            <div class="content-card">
+              {%- if address == customer.default_address -%}<p class="eyebrow">Default</p>{%- endif -%}
+              {{ address | format_address }}
+              <form method="post" action="{{ routes.account_addresses_url }}/{{ address.id }}" style="margin-top: 1rem;">
+                <input type="hidden" name="_method" value="delete">
+                <button class="btn btn--ghost" type="submit" onclick="return confirm('Delete this address?');">Delete</button>
+              </form>
+            </div>
+          {%- else -%}
+            <p>No addresses saved yet.</p>
+          {%- endfor -%}
+        </div>
+        <div class="content-card">
+          <h2 class="h3">Add an address</h2>
+          {%- form 'customer_address', customer.new_address -%}
+            <div class="field-row">
+              <div class="field"><label for="AddrFirst">First name</label><input id="AddrFirst" name="address[first_name]" autocomplete="given-name" value="{{ form.first_name }}"></div>
+              <div class="field"><label for="AddrLast">Last name</label><input id="AddrLast" name="address[last_name]" autocomplete="family-name" value="{{ form.last_name }}"></div>
+            </div>
+            <div class="field"><label for="AddrOne">Address</label><input id="AddrOne" name="address[address1]" autocomplete="address-line1" value="{{ form.address1 }}"></div>
+            <div class="field"><label for="AddrTwo">Apartment, suite, etc.</label><input id="AddrTwo" name="address[address2]" autocomplete="address-line2" value="{{ form.address2 }}"></div>
+            <div class="field-row">
+              <div class="field"><label for="AddrCity">City</label><input id="AddrCity" name="address[city]" autocomplete="address-level2" value="{{ form.city }}"></div>
+              <div class="field"><label for="AddrZip">Postal code</label><input id="AddrZip" name="address[zip]" autocomplete="postal-code" value="{{ form.zip }}"></div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="AddrCountry">Country</label>
+                <div class="select-wrap"><select id="AddrCountry" name="address[country]" autocomplete="country">{{ all_country_option_tags }}</select>{% render 'icon', name: 'chevron' %}</div>
+              </div>
+              <div class="field"><label for="AddrProvince">State / province</label><input id="AddrProvince" name="address[province]" autocomplete="address-level1" value="{{ form.province }}"></div>
+            </div>
+            <div class="field"><label for="AddrPhone">Phone</label><input id="AddrPhone" type="tel" name="address[phone]" autocomplete="tel" value="{{ form.phone }}"></div>
+            <label class="filters__option"><input type="checkbox" name="address[default]" value="1"> Make this my default</label>
+            <button class="btn" type="submit" style="margin-top: 1rem;">Save address</button>
+          {%- endform -%}
+        </div>
+      </div>
+  {%- endcase -%}
+</div>
+
+{% schema %}
+{
+  "name": "Customer account",
+  "class": "section-main-customers",
+  "settings": []
+}
+{% endschema %}

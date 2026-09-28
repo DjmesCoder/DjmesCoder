@@ -1,0 +1,17 @@
+<div class="page-width page-width--narrow" style="padding-top: clamp(3rem, 8vw, 6rem);">
+  <div class="empty-state" data-reveal>
+    <div style="width: 9rem; color: var(--color-terracotta);">{% render 'illustration', name: 'placeholder-dog' %}</div>
+    <p class="hand-note">404</p>
+    <h1 class="h2">Looks like someone buried this page</h1>
+    <p>We've checked under the couch and in the backyard. No luck. Let's get you back to the good stuff.</p>
+    <a class="btn" href="{{ routes.all_products_collection_url }}">Shop All {% render 'icon', name: 'arrow' %}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "404",
+  "class": "section-main-404",
+  "settings": []
+}
+{% endschema %}

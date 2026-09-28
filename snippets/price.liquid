@@ -1,0 +1,30 @@
+{%- comment -%}
+  Params: product (required), variant (optional), show_from (bool), el_id
+{%- endcomment -%}
+{%- liquid
+  assign target = variant | default: product.selected_or_first_available_variant
+  assign price = target.price
+  assign compare = target.compare_at_price
+  if variant == blank and show_from
+    assign price = product.price_min
+    assign compare = product.compare_at_price_min
+  endif
+  assign on_sale = false
+  if compare > price
+    assign on_sale = true
+  endif
+-%}
+<div class="price"{% if data_price %} data-price{% endif %}>
+  {%- if on_sale -%}
+    <span class="visually-hidden">Sale price</span>
+  {%- endif -%}
+  <span class="price__current">
+    {%- if show_from and variant == blank and product.price_varies -%}From {% endif -%}
+    {{- price | money -}}
+  </span>
+  {%- if on_sale -%}
+    <span class="visually-hidden">Regular price</span>
+    <s class="price__compare">{{ compare | money }}</s>
+    <span class="price__sale-tag">On sale</span>
+  {%- endif -%}
+</div>

@@ -1,0 +1,98 @@
+{%- liquid
+  assign contact_url = section.settings.contact_link | default: '/pages/contact'
+-%}
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="logo" href="{{ routes.root_url }}">
+          <span class="logo__mark">{% render 'icon', name: 'paw' %}</span>
+          <span>{{ shop.name }}</span>
+        </a>
+        {%- if section.settings.blurb != blank -%}
+          <p>{{ section.settings.blurb }}</p>
+        {%- endif -%}
+        {%- if section.settings.show_social -%}
+          <ul class="footer__social" role="list">
+            {%- if settings.social_instagram != blank -%}
+              <li><a class="icon-btn" href="{{ settings.social_instagram }}" aria-label="Instagram">{% render 'icon', name: 'instagram' %}</a></li>
+            {%- endif -%}
+            {%- if settings.social_facebook != blank -%}
+              <li><a class="icon-btn" href="{{ settings.social_facebook }}" aria-label="Facebook">{% render 'icon', name: 'facebook' %}</a></li>
+            {%- endif -%}
+            {%- if settings.social_tiktok != blank -%}
+              <li><a class="icon-btn" href="{{ settings.social_tiktok }}" aria-label="TikTok">{% render 'icon', name: 'tiktok' %}</a></li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <nav aria-labelledby="FooterHelp-{{ section.id }}">
+        <h2 class="footer__heading" id="FooterHelp-{{ section.id }}">{{ section.settings.policies_heading }}</h2>
+        <ul class="footer__list" role="list">
+          <li><a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping Policy</a></li>
+          <li><a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">Refund &amp; Return Policy</a></li>
+          <li><a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms of Service</a></li>
+          <li><a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy Policy</a></li>
+          <li><a href="{{ contact_url }}">Contact</a></li>
+          {%- for link in section.settings.extra_menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="footer__heading">{{ section.settings.contact_heading }}</h2>
+        {%- if section.settings.contact_text != blank -%}
+          <p style="opacity: .85;">{{ section.settings.contact_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.email != blank -%}
+          <a class="footer__email" href="mailto:{{ section.settings.email }}">
+            {% render 'icon', name: 'mail' %}
+            {{ section.settings.email }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_note }}</p>
+      {%- if section.settings.show_powered_by -%}<p>{{ powered_by_link }}</p>{%- endif -%}
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer__social { display: flex; gap: 0.25rem; margin: 1rem 0 0 -0.6rem; padding: 0; list-style: none; }
+  .footer__social .icon-btn { color: var(--color-cream); }
+  .footer__social .icon-btn:hover { background: rgba(246, 238, 223, 0.12); text-decoration: none; }
+</style>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "blurb",
+      "label": "About text",
+      "default": "Good stuff for every mutt. Everyday gear for dogs and cats of every shape, size and mix."
+    },
+    { "type": "checkbox", "id": "show_social", "label": "Show social links", "default": true, "info": "Add links in Theme settings → Social media." },
+    { "type": "text", "id": "policies_heading", "label": "Links heading", "default": "The fine print" },
+    {
+      "type": "url",
+      "id": "contact_link",
+      "label": "Contact page link",
+      "info": "Defaults to /pages/contact. Create a page with the 'contact' template."
+    },
+    { "type": "link_list", "id": "extra_menu", "label": "Extra links (optional)" },
+    { "type": "text", "id": "contact_heading", "label": "Contact heading", "default": "Say hi" },
+    { "type": "text", "id": "contact_text", "label": "Contact text", "default": "Questions about sizing, orders or which bed your dog will actually sleep in? Email us. A real person will write back." },
+    { "type": "text", "id": "email", "label": "Support email", "default": "support@muttmore.com" },
+    { "type": "text", "id": "copyright_note", "label": "Copyright note", "default": "Made with love (and fur)." },
+    { "type": "checkbox", "id": "show_powered_by", "label": "Show \"Powered by Shopify\"", "default": false }
+  ]
+}
+{% endschema %}

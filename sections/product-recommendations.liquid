@@ -1,0 +1,78 @@
+{%- liquid
+  assign base = routes.product_recommendations_url | append: '?section_id=' | append: section.id | append: '&product_id=' | append: product.id | append: '&limit=' | append: section.settings.limit
+  assign primary_url = base | append: '&intent=' | append: section.settings.intent
+  assign fallback_url = ''
+  if section.settings.intent == 'complementary'
+    assign fallback_url = base | append: '&intent=related'
+  endif
+-%}
+<section class="section" data-recommendations-section aria-labelledby="PairsTitle-{{ section.id }}">
+  <div class="page-width">
+    <div class="pairs" data-reveal>
+      <div class="pairs__head">
+        <h2 id="PairsTitle-{{ section.id }}">{{ section.settings.heading }}</h2>
+        {%- if section.settings.note != blank -%}
+          <p class="hand-note">{{ section.settings.note }}</p>
+        {%- endif -%}
+      </div>
+
+      <div
+        data-recommendations
+        data-url="{{ primary_url }}"
+        {% if fallback_url != blank %}data-fallback-url="{{ fallback_url }}"{% endif %}
+        aria-busy="true"
+      >
+        {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+          <ul class="pairs__list" role="list">
+            {%- for rec in recommendations.products -%}
+              <li data-rec-item>
+                <div class="mini-card">
+                  <div class="mini-card__media">
+                    {%- if rec.featured_media -%}
+                      {{ rec.featured_media | image_url: width: 240 | image_tag: loading: 'lazy', alt: '', widths: '120, 240', sizes: '90px' }}
+                    {%- else -%}
+                      {% render 'placeholder' %}
+                    {%- endif -%}
+                  </div>
+                  <div>
+                    <h3><a href="{{ rec.url }}">{{ rec.title }}</a></h3>
+                    {% render 'price', product: rec, show_from: true %}
+                  </div>
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- else -%}
+          <ul class="pairs__list" role="list" aria-hidden="true">
+            <li><div class="pairs__skeleton"></div></li>
+            <li><div class="pairs__skeleton"></div></li>
+            <li><div class="pairs__skeleton"></div></li>
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pairs well with",
+  "class": "section-product-recommendations",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pairs well with" },
+    { "type": "text", "id": "note", "label": "Handwritten note", "default": "good buddies, these" },
+    {
+      "type": "select",
+      "id": "intent",
+      "label": "Recommendation type",
+      "options": [
+        { "value": "complementary", "label": "Complementary (set in Search & Discovery app)" },
+        { "value": "related", "label": "Related (automatic)" }
+      ],
+      "default": "complementary",
+      "info": "Complementary falls back to Related when none are set."
+    },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 4, "step": 1, "default": 3 }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,13 @@
+{%- comment -%}
+  Outputs a CSS background value for a color option value.
+  Uses Shopify's native swatch (color or image) when set in the admin,
+  otherwise falls back to the value name as a CSS color (e.g. "Forest Green" -> forestgreen).
+  Param: value (product_option_value or string)
+{%- endcomment -%}
+{%- if value.swatch.image -%}
+  url({{ value.swatch.image | image_url: width: 96 }})
+{%- elsif value.swatch.color -%}
+  {{ value.swatch.color }}
+{%- else -%}
+  {{ value | handle | remove: '-' }}
+{%- endif -%}

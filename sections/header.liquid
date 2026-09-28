@@ -1,0 +1,112 @@
+{%- liquid
+  assign menu = section.settings.menu
+-%}
+<header class="site-header" data-header>
+  <div class="page-width site-header__inner">
+    <details class="menu-drawer">
+      <summary class="icon-btn" aria-label="Menu" aria-expanded="false" aria-controls="MenuDrawer">
+        <span class="menu-drawer__icon-open">{% render 'icon', name: 'menu' %}</span>
+        <span class="menu-drawer__icon-close">{% render 'icon', name: 'close' %}</span>
+      </summary>
+      <nav class="menu-drawer__panel" id="MenuDrawer" aria-label="Mobile">
+        <ul class="menu-drawer__list" role="list">
+          {%- for link in menu.links -%}
+            <li>
+              <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>
+                {{ link.title }}
+                {% render 'icon', name: 'arrow' %}
+              </a>
+            </li>
+          {%- endfor -%}
+          {%- if shop.customer_accounts_enabled -%}
+            <li>
+              <a href="{{ routes.account_url }}">
+                {%- if customer %}My account{% else %}Log in{% endif -%}
+                {% render 'icon', name: 'arrow' %}
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+        {%- if section.settings.drawer_note != blank -%}
+          <p class="menu-drawer__note hand-note">{{ section.settings.drawer_note }}</p>
+        {%- endif -%}
+      </nav>
+    </details>
+
+    <a class="logo" href="{{ routes.root_url }}">
+      {%- if section.settings.logo != blank -%}
+        {{
+          section.settings.logo
+          | image_url: width: 400
+          | image_tag: alt: shop.name, widths: '200, 300, 400', sizes: '200px', loading: 'eager'
+        }}
+      {%- else -%}
+        <span class="logo__mark">{% render 'icon', name: 'paw' %}</span>
+        <span>{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="site-nav" aria-label="Main">
+      <ul class="site-nav__list" role="list">
+        {%- for link in menu.links -%}
+          <li>
+            <a class="site-nav__link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>
+              {{- link.title -}}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Search">
+        {% render 'icon', name: 'search' %}
+      </a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="icon-btn header-actions__account" href="{{ routes.account_url }}" aria-label="{% if customer %}My account{% else %}Log in{% endif %}">
+          {% render 'icon', name: 'user' %}
+        </a>
+      {%- endif -%}
+      <a class="icon-btn" href="{{ routes.cart_url }}">
+        {% render 'icon', name: 'cart' %}
+        <span class="visually-hidden" data-cart-label>Cart, {{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}</span>
+        <span class="cart-count" data-cart-count aria-hidden="true"{% if cart.item_count == 0 %} hidden{% endif %}>
+          {{- cart.item_count -}}
+        </span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  @media (max-width: 559px) {
+    .header-actions__account { display: none; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "Leave empty to use the paw mark and your store name."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "drawer_note",
+      "label": "Mobile menu note",
+      "default": "Tail wags guaranteed. Mostly."
+    }
+  ]
+}
+{% endschema %}

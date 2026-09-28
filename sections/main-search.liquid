@@ -1,0 +1,60 @@
+<div class="page-width" style="padding-top: clamp(2rem, 5vw, 3.5rem);">
+  <h1 data-reveal>{% if search.performed %}Results for “{{ search.terms | escape }}”{% else %}Search the shop{% endif %}</h1>
+
+  <form class="search-form" action="{{ routes.search_url }}" method="get" role="search" style="margin-bottom: 2.5rem;">
+    <label class="visually-hidden" for="SearchInput">Search</label>
+    <input class="input" id="SearchInput" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Beds, bowls, shirts…" autocomplete="off">
+    <input type="hidden" name="options[prefix]" value="last">
+    <button class="btn" type="submit">{% render 'icon', name: 'search' %}<span>Search</span></button>
+  </form>
+
+  {%- if search.performed -%}
+    {%- paginate search.results by 18 -%}
+      {%- if search.results_count > 0 -%}
+        <p class="collection-toolbar__count" role="status" style="margin-bottom: 1.5rem;">
+          {{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }}
+        </p>
+        <ul class="product-grid collection-grid" role="list">
+          {%- for item in search.results -%}
+            <li>
+              {%- if item.object_type == 'product' -%}
+                {%- assign reveal_index = forloop.index0 | modulo: 3 -%}
+                {% render 'product-card', product: item, index: reveal_index, heading_level: 'h2' %}
+              {%- else -%}
+                <div class="content-card" data-reveal>
+                  <p class="eyebrow">{{ item.object_type | capitalize }}</p>
+                  <h2 class="h4"><a href="{{ item.url }}">{{ item.title }}</a></h2>
+                  <p>{{ item.content | strip_html | truncatewords: 24 }}</p>
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" aria-label="Pagination">
+            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" aria-label="Previous page">&larr;</a>{%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>{%- elsif part.title == paginate.current_page -%}<span aria-current="page">{{ part.title }}</span>{%- else -%}<span>{{ part.title }}</span>{%- endif -%}
+            {%- endfor -%}
+            {%- if paginate.next -%}<a href="{{ paginate.next.url }}" aria-label="Next page">&rarr;</a>{%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- else -%}
+        <div class="empty-state">
+          {% render 'icon', name: 'search' %}
+          <h2>No luck sniffing that out</h2>
+          <p>Try a simpler word, like “bed” or “bowl”. Or browse everything.</p>
+          <a class="btn" href="{{ routes.all_products_collection_url }}">Shop All</a>
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search results",
+  "class": "section-main-search",
+  "settings": []
+}
+{% endschema %}
