@@ -1,8 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {}
+      "settings": {
+        "eyebrow": "The neighborhood pet shop, online",
+        "heading": "Good stuff for every [mutt]",
+        "subheading": "Beds, bowls, walk gear and shirts for dogs and cats of every shape, size and questionable pedigree. Picked by pet people. Tested by our own mutts.",
+        "button_label": "Shop All",
+        "button_link": "",
+        "trust_text": "Free shipping on every order",
+        "caption": "Biscuit, head of quality control",
+        "note": "100% mutt. 0% regrets."
+      }
     },
     "shop_by_pet": {
       "type": "shop-by-pet",
@@ -13,7 +31,8 @@
             "pet": "dogs",
             "title": "For Dogs",
             "text": "Shirts, bowls, beds and walk gear for the good boys, good girls and professional sock thieves.",
-            "cta": "Shop dog stuff"
+            "cta": "Shop dog stuff",
+            "collection": ""
           }
         },
         "cats": {
@@ -22,7 +41,8 @@
             "pet": "cats",
             "title": "For Cats",
             "text": "Cozy spots, tidy bowls and grooming bits for cats who will absolutely pretend not to care.",
-            "cta": "Shop cat stuff"
+            "cta": "Shop cat stuff",
+            "collection": ""
           }
         }
       },
@@ -30,7 +50,10 @@
         "dogs",
         "cats"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Shop by pet",
+        "heading": "Who are we shopping for today?"
+      }
     },
     "shop_by_need": {
       "type": "shop-by-need",
@@ -39,35 +62,40 @@
           "type": "need",
           "settings": {
             "title": "Dog Apparel",
-            "icon": "shirt"
+            "icon": "shirt",
+            "collection": ""
           }
         },
         "feeding": {
           "type": "need",
           "settings": {
             "title": "Feeding",
-            "icon": "bowl"
+            "icon": "bowl",
+            "collection": ""
           }
         },
         "beds": {
           "type": "need",
           "settings": {
             "title": "Beds & Comfort",
-            "icon": "bed"
+            "icon": "bed",
+            "collection": ""
           }
         },
         "walks": {
           "type": "need",
           "settings": {
             "title": "Walks & Potty",
-            "icon": "leash"
+            "icon": "leash",
+            "collection": ""
           }
         },
         "grooming": {
           "type": "need",
           "settings": {
             "title": "Cleaning & Grooming",
-            "icon": "brush"
+            "icon": "brush",
+            "collection": ""
           }
         }
       },
@@ -78,7 +106,11 @@
         "walks",
         "grooming"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Shop by need",
+        "heading": "What's on the list?",
+        "note": "(treats not included. we tried.)"
+      }
     },
     "featured": {
       "type": "featured-products",
@@ -86,18 +118,21 @@
         "shirt": {
           "type": "product",
           "settings": {
+            "product": "god-got-me-dog-shirt-christian-religious-faith-quote-pet-tee-soft-black-puppy-clothes-inspirational-outfit-for-small-dogs",
             "note": "Wear your faith on your fur"
           }
         },
         "dispenser": {
           "type": "product",
           "settings": {
+            "product": "led-dog-poop-bag-dispenser-clip-on-waste-bag-holder-with-built-in-light-for-night-walks",
             "note": "Lights up night walks"
           }
         },
         "bowl": {
           "type": "product",
           "settings": {
+            "product": "slow-feeder-dog-bowl-puzzle-maze-bowl-to-slow-fast-eaters-1-or-2-pack",
             "note": "Slows down the gulpers"
           }
         }
@@ -107,7 +142,14 @@
         "dispenser",
         "bowl"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Staff picks",
+        "heading": "The stuff our own mutts vote for",
+        "text": "Tried, tested, chewed on (a little). These are the ones we'd buy again.",
+        "link_label": "See everything",
+        "link": "",
+        "image_fit": "contain"
+      }
     },
     "why": {
       "type": "why-muttmore",
@@ -142,15 +184,34 @@
         "returns",
         "people"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Why Muttmore",
+        "heading": "Shopping here should feel easy. Like a good nap."
+      }
     },
     "story": {
       "type": "our-story",
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/image000000_e01a0de4-7024-45d7-ab61-d10c334bd0d2.jpg",
+        "caption": "The original Muttmore crew",
+        "eyebrow": "Our story",
+        "heading": "Started by a mutt. Run by mutt people.",
+        "text": "<p>Muttmore started with one scruffy rescue who had no pedigree and a lot of opinions. Pet stores felt built for show dogs. We wanted a shop for the rest of us.</p><p>So we stock the everyday things we actually use: sturdy bowls, soft beds, walk gear that survives puddles. Every breed, every mix, every lovable weirdo is welcome here.</p><p><em>This is your space. Swap in your own story and photo from the theme editor.</em></p>",
+        "signature": "— MuttFam",
+        "button_label": "",
+        "button_link": ""
+      }
     },
     "newsletter": {
       "type": "newsletter",
-      "settings": {}
+      "settings": {
+        "eyebrow": "psst, over here",
+        "heading": "Join the pack",
+        "text": "New arrivals, pet-tested tips and the occasional photo of our office dogs. About twice a month. Never spammy.",
+        "button_label": "Count me in",
+        "success": "You're in! Welcome to the pack. Watch your inbox for a hello.",
+        "fine_print": "Unsubscribe anytime with one click. We won't take it personally."
+      }
     }
   },
   "order": [
